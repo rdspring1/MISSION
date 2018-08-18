@@ -8,8 +8,9 @@ An ICML 2018 paper by Amirali Aghazadeh\*, Ryan Spring\*, Daniel LeJeune, Gautam
 # Code Versions
 
 1. Mission Logistic Regression
-2. Mission Softmax Regression
-3. Feature Hashing Softmax Regression
+2. Fine-Grained Mission Softmax Regression
+3. Coarse-Grained Mission Softmax Regression
+4. Feature Hashing Softmax Regression
 
 # Optimizations
 
@@ -17,6 +18,12 @@ An ICML 2018 paper by Amirali Aghazadeh\*, Ryan Spring\*, Daniel LeJeune, Gautam
 Necessary for Tera-Scale Datasets
 * AVX SIMD optimization for fast Softmax Regression
 * The code is currently optimized for the Splice-Site and DNA Metagenomics datasets.
+
+### Mission Softmax Regression
+0. Fine-Grained Feature Set - Each class maintains a separate feature set, so there is a top-k heap for each class.
+1. Coarse-Grained Feature Set - All the classes share a common set of features, so there is only one top-k heap. -\
+Each feature is measured by its L1 Norm for all classes.
+2. Data Parallelism - Each worker maintains a separate heap, while aggregating gradients in the same count-sketch.
 
 # Datasets
 1. [KDD 2012](https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary.html#kdd2012)

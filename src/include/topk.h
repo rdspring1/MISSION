@@ -15,7 +15,7 @@
 #include <cstring>
 #include <fstream>
 
-const float EPS = 1.5;
+const float EPS = 1.05;
 
 /*
    Fast Parser - Read data efficiently using Memory-Mapped I/O
@@ -59,11 +59,21 @@ class TopK
 				 */
 				const float operator[] (const key_t& key) const
 				{
-						if(fdict.find(key) == fdict.end())
-						{
-								return 0.0;
-						}
-						return fdict.at(key);
+						return (fdict.find(key) == fdict.end()) ? 0.0 : fdict.at(key);
+				}
+
+				/*
+				   @param key - feature representation
+				   @return true if the feature is present in Top-K Heap
+				 */
+				const bool find (const key_t& key) const
+				{
+						return (fdict.find(key) == fdict.end()) ? false : true;
+				}
+
+				bool full() const
+				{
+						return (count >= N);
 				}
 
 				/*
@@ -71,11 +81,7 @@ class TopK
 				 */
 				float minimum() const
 				{
-						if(count < N)
-						{
-								return 0.0;
-						}
-						return data[0].first;
+						return (count < N) ? 0.0 : data[0].first;
 				}
 
 				/*

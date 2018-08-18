@@ -4,7 +4,8 @@ CFLAGS = -Wall --std=c++14 -O3 -Iinclude/
 
 softmax: fast_parser murmurhash util
 	g++ $(CFLAGS) -fopenmp -pthread -mavx softmax.cpp fast_parser.o MurmurHash.o util.o -o softmax
-	g++ $(CFLAGS) -fopenmp -pthread -mavx mission_softmax.cpp fast_parser.o MurmurHash.o util.o -o mission_softmax
+	g++ $(CFLAGS) -fopenmp -pthread -mavx coarse_mission_softmax.cpp fast_parser.o MurmurHash.o util.o -o coarse_mission_softmax
+	g++ $(CFLAGS) -fopenmp -pthread -mavx fine_mission_softmax.cpp fast_parser.o MurmurHash.o util.o -o fine_mission_softmax
 
 logistic: fast_parser murmurhash util
 	g++ $(CFLAGS) -fopenmp -pthread -mavx mission_logistic.cpp fast_parser.o MurmurHash.o util.o -o mission_logistic
@@ -26,5 +27,6 @@ clean:
 	rm -rf fast_parser.o
 	rm -rf util.o
 	rm -rf mission_logistic
-	rm -rf mission_softmax
+	rm -rf fine_mission_softmax
+	rm -rf coarse_mission_softmax
 	rm -rf softmax

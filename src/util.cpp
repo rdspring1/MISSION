@@ -79,6 +79,12 @@ __m256 median(__m256 a, __m256 b, __m256 c)
 		return _mm256_max_ps(ab_min, ab_max_c_min);
 }
 
+__m256 my_abs(__m256 x)
+{
+		const __m256 MASK = _mm256_castsi256_ps(_mm256_set1_epi32(0x80000000));
+		return _mm256_andnot_ps(MASK, x);
+}
+
 void maximum(float* data, size_t len, float& value, uint32_t& argmax)
 {
 		value = FLT_MIN;
