@@ -1,6 +1,6 @@
 all: clean softmax logistic
 
-CFLAGS = -Wall --std=c++14 -O3 -Iinclude/
+CFLAGS = -Wall --std=c++11 -O3 -Iinclude/
 
 softmax: fast_parser murmurhash util
 	g++ $(CFLAGS) -fopenmp -pthread -mavx softmax.cpp fast_parser.o MurmurHash.o util.o -o softmax

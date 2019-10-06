@@ -1,0 +1,5 @@
+*.o
+softmax
+coarse_mission_softmax
+fine_mission_softmax
+mission_logistic
